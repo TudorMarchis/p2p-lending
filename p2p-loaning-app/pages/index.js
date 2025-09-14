@@ -1,21 +1,19 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+//import { Geist, Geist_Mono } from "next/font/google";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { AuthProvider, useAuth } from './AuthContext';
+import LandingPage from './LandingPage';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+function Main() {
+  const { user, loading } = useAuth();
+  if (loading) return <div>Loading...</div>;
+  return <LandingPage />;
+}
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default function Home() {
+export default function Root() {
   return (
-    <div>
-      <h1>Credio</h1>
-      <h2>P-2-P money landing platform</h2>
-    </div>
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   );
 }
